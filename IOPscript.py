@@ -2,6 +2,7 @@
 #                                  #
 #   using the 10th digit to see    #
 #   when nanosecond changes to sec #                             
+#   without "whoami" SET event     #
 #                                  #
 ####################################
 import csv
