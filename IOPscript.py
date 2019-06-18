@@ -1,4 +1,9 @@
-
+####################################
+#                                  #
+#   using the 10th digit to see    #
+#   when nanosecond changes to sec #                             
+#                                  #
+####################################
 import csv
 import sys
 
