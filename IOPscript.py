@@ -14,6 +14,7 @@ if len(sys.argv) < 3:
 
 with open(sys.argv[1]) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
+    print len(csv_reader)
     line_count = 0
     event_counter = 0
     list_of_iops = []
