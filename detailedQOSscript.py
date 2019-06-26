@@ -28,7 +28,8 @@ with open(sys.argv[1]) as csv_file:
         if "Process Begin" in row[2]: #no parameter
             continue
 
-        if "Host command reception by HNVMe" in row[3]:
+        opcode = row[4][-2:]
+        if ("Host command reception by HNVMe" in row[3] and opcode == "02"):
             cmd_index = row[4][12:15]
             dictionary_of_QOS[cmd_index] = [row] #cmd index and row
             continue
@@ -60,6 +61,10 @@ with open(sys.argv[1]) as csv_file:
                 cmd_index = [indices for indices, param in enumerate(array_of_parameters_name) if syntax in param]
                 cmd_index = cmd_index[0]
                 cmd_index = array_of_parameters_parameter[cmd_index][-3:] #truncate
+                
+                #to link vba to the cmd idx
+                if("FTL: PSR: host read (JBID-|jbFmu|secOffset|secLength|streamStat|cmdIdx|cmdOset)" in row[3]):
+                    current_cmd_index_for_vba = cmd_index
 
                 if(cmd_index in dictionary_of_QOS):
                     #linked between FFLBA and cmd idx
@@ -69,9 +74,8 @@ with open(sys.argv[1]) as csv_file:
                         dictionary_of_QOS[cmd_index].append(row)
                         break
 
-                    #to link vba to the cmd idx
-                    if("FTL: PSR: host read (JBID-|jbFmu|secOffset|secLength|streamStat|cmdIdx|cmdOset)" in row[3]):
-                        current_cmd_index_for_vba = cmd_index
+                    
+                    
 
                     dictionary_of_QOS[cmd_index].append(row)
                 #done
@@ -115,7 +119,6 @@ with open(sys.argv[1]) as csv_file:
 
     
     print "Number of Events Processed:", line_count - 1
-    # print "Number of Results:" , result_dictionary_of_QOS
 
     ############## writes to new csv file (need to change file name each time, cant override#######
     with open(sys.argv[2], 'wb') as csvfile:
