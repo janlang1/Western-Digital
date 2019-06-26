@@ -2,6 +2,10 @@ import csv
 import sys
 import re
 
+if len(sys.argv) < 3: 
+    print "Not enough inputs"
+    sys.exit()
+
 with open(sys.argv[1]) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
@@ -27,6 +31,9 @@ with open(sys.argv[1]) as csv_file:
 
         if "Process Begin" in row[2]: #no parameter
             continue
+        
+        if row[0] == "0":
+            continue
 
         opcode = row[4][-2:]
         if ("Host command reception by HNVMe" in row[3] and opcode == "02"):
@@ -50,6 +57,7 @@ with open(sys.argv[1]) as csv_file:
                 continue
 
         #looking for cmd idx in the name
+        addedRow = False;
         for syntax in cmd_idx_syntax:
             if syntax in row[3].lower():
                 array_of_parameters_name = row[3][row[3].find("(")+1:row[3].find(")")].lower().split("|")
@@ -72,14 +80,14 @@ with open(sys.argv[1]) as csv_file:
                         fflba = row[4][:10]
                         dictionary_of_FFLBA_to_cmdindex[fflba] = cmd_index
                         dictionary_of_QOS[cmd_index].append(row)
+                        addedRow = True
                         break
 
-                    
-                    
-
                     dictionary_of_QOS[cmd_index].append(row)
-                #done
-                break
+                    addedRow = True
+                    break
+        if addedRow:
+            continue
         
         #looking for FFLBA in the name
         if "FFLBA" in row[3]:
