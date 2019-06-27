@@ -130,9 +130,11 @@ with open(sys.argv[1]) as csv_file:
 
     ############## writes to new csv file (need to change file name each time, cant override#######
     with open(sys.argv[2], 'wb') as csvfile:
-        iops_writer = csv.writer(csvfile, delimiter=' ',
-                            quotechar=' ', quoting=csv.QUOTE_MINIMAL)
+        iops_writer = csv.writer(csvfile)
+        
+        #timestamp	source	type	name	parameters	threadId	subSource
+        iops_writer.writerow(["timestamp", "source", "type", "name", "parameters", "threadId", "subSource"])
         for first, second in result_dictionary_of_QOS:
             for events in second:
-                iops_writer.writerow([events[0], ",", events[1],",", events[2],",", events[3],",", events[4],",", events[5],",", events[6]])
+                iops_writer.writerow([events[0], events[1], events[2], events[3], events[4], events[5], events[6]])
 
