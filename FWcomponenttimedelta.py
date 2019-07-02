@@ -2,9 +2,9 @@
 import csv
 import sys
 
-# if len(sys.argv) < 3: 
-#     print "Not enough inputs"
-#     sys.exit()
+if len(sys.argv) < 3: 
+    print "Not enough inputs"
+    sys.exit()
 
 with open(sys.argv[1]) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -43,6 +43,19 @@ with open(sys.argv[1]) as csv_file:
                 curr_cmd_index = without_spaces[10:15]
                 starting_cmd_timestamp = int(row[0])
                 starting_FE_timestamp = int(row[0])
+                
+            elif "Command Comletion" in row[3]:
+                #print "done"
+                dictionary_of_FW_deltas["HW"] = int(row[0]) - starting_HW_timestamp
+                dictionary_of_FW_deltas["CMD"] = int(row[0]) - starting_cmd_timestamp
+                # print dictionary_of_FW_deltas
+                iops_writer.writerow([curr_cmd_index, dictionary_of_FW_deltas["CMD"], dictionary_of_FW_deltas["FE"],
+                                                    dictionary_of_FW_deltas["FTL"], dictionary_of_FW_deltas["PS"],
+                                                    dictionary_of_FW_deltas["HW"]])
+                
+                dictionary_of_FW_deltas.clear()
+                ignore_PS_flag = False
+                ignore_HVMe_flag = False
             
             elif "FE: API HA FW Pop" in row[3]:
                 #print 2
@@ -56,18 +69,7 @@ with open(sys.argv[1]) as csv_file:
                 #print 4
                 dictionary_of_FW_deltas["FTL"] = int(row[0]) - starting_FTL_timestamp
             
-            elif "Command Comletion" in row[3]:
-                #print "done"
-                dictionary_of_FW_deltas["HW"] = int(row[0]) - starting_HW_timestamp
-                dictionary_of_FW_deltas["CMD"] = int(row[0]) - starting_cmd_timestamp
-                # print dictionary_of_FW_deltas
-                iops_writer.writerow([curr_cmd_index, dictionary_of_FW_deltas["CMD"], dictionary_of_FW_deltas["FE"],
-                                                    dictionary_of_FW_deltas["FTL"], dictionary_of_FW_deltas["PS"],
-                                                    dictionary_of_FW_deltas["HW"]])
-                
-                dictionary_of_FW_deltas.clear()
-                ignore_PS_flag = False
-                ignore_HVMe_flag = False
+            
                 
 
             if not ignore_PS_flag:
