@@ -1,0 +1,50 @@
+#event name : linking parameter
+#maybe if this is only to track outliers, user needs to specify the cmd idx, fflba, vba with exact values
+
+start
+"FTL: HRF: Start Handle Flow (FFLBA-| sector offset| cnt| *command index - host)", ("*HIMCmdIdx",KEY1), ("FFLBA-",KEY2)
+
+inbtwn
+wordbank = [FTL: HRF: Start translate (FFLBA-),
+            FTL: SAT: Translate direct (FFLBA| Length| SearchCuq),
+            FTL: HRF: Finish translate (FFLBA|JBA|FMUsCnt|*prftch done|*preload cline),
+            FTL: PSR: host read (JBID-|jbFmu|secOffset|secLength|streamStat|cmdIdx|cmdOset),
+            FTL: PSR: host read VBA (VBA-)
+            ]
+
+end
+"FTL: HRF: Finish Handle Flow (HIMCmdIdx)",("Command Index",KEY1)
+
+1. parse
+2. link
+3. calculate 
+4. dump
+
+psuedo-code:
+//read config file 
+what should be the key of the result dictionary:
+empty dictionary/map/set:
+    starter_map
+    inbtwn_wordbank_set
+    ender_map
+    linking_dictionary
+if start 
+    put name of set event into a starter_map
+if end 
+    put name of set event into a ender_map
+if inbtwn 
+    put name of set event into a wordbank
+//potential sequential reads go here
+
+//parsing csv file 
+*use a heap to check outliers, dont want a TON of data only interesting ones
+for row in file
+    if set event is in starter_map
+        1.find the linking_parameter in the name and then in the parameter (number of linking parameter is dependent on starter config,
+            one of the linking_parameter should at least cover the ender, and the rest are for inbtwners)
+        2.add the set event to map_of_array_of_setevents (NOT SURE WHAT THE KEY SHOULD BE YET)
+    if set event is in ender_map
+        1. find the linking_parameter in the name and then in the parameter (should only be one)
+        //calculate
+        check if delta is greater than the 20th worst one in the heap
+    if set event is in wordbank

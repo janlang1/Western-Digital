@@ -37,7 +37,7 @@ with open(sys.argv[1]) as csv_file:
                 line_count += 1
 
             elif row[3] == "whoami":
-                print seconds, " " , event_counter;
+                #print seconds, " " , event_counter;
                 iops_writer.writerow([seconds, event_counter])
                 seconds += 1
                 event_counter = 0

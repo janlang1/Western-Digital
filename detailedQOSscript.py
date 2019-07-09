@@ -19,10 +19,8 @@ with open(sys.argv[1]) as csv_file:
         dictionary_of_QOS = {}
         dictionary_of_FFLBA_to_cmdindex = {}
         dictionary_of_VBA_to_cmdindex = {}
-        result_dictionary_of_QOS = []
 
         current_cmd_index_for_vba = ""
-
         cmd_idx_syntax = ["cmd idx", "cmdidx"]
         
         ############# reading from csv #####################
@@ -62,7 +60,6 @@ with open(sys.argv[1]) as csv_file:
                     for events in dictionary_of_QOS[cmd_index]:
                         iops_writer.writerow([events[0], events[1], events[2], events[3], events[4], events[5], events[6]])
 
-                    #result_dictionary_of_QOS.append((cmd_index,dictionary_of_QOS[cmd_index]))
                     dictionary_of_QOS.pop(cmd_index)#pop after so i can still find the cmd index
                     continue
 
