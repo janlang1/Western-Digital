@@ -1,0 +1,30 @@
+config
+
+template:
+start 
+====================================================================
+<SET event name1>, <linking key1>, *nested*<linking key2>, *nested* <linking key3>
+<SET event name2>, <linking key4> 
+
+inbtwn (optional)
+====================================================================
+<SET event name3>, <linking key2>, 
+<SET event name4>, <linking key3>, 
+<SET event name5>, <linking key4>,
+
+end
+====================================================================
+<SET event name6>, <linking key1>
+<SET event name7>, <linking key4> 
+
+counters (optional)
+====================================================================
+<SET event name8>, <linking key1>
+
+1. start, events that indicate a start
+2. inbtwn, events you want to keep track of in between the start and end events
+3. end, events that will indicate a stop of the linking
+4. counters, events you want to count instead of find deltas for or can do both.
+
+REQUIREMENTS:
+1. if you have 
