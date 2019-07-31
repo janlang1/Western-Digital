@@ -1,0 +1,18 @@
+start 
+====================================================================
+<SET event name1>& <linking parameter1, keyword1>& <linking parameter2, keyword2>
+<SET event name2>& <linking parameter4, keyword4> 
+
+inbtwn
+====================================================================
+<SET event name3>& <linking parameter2, keyword2> 
+<SET event name5>& <linking parameter5, keyword4>
+
+end
+====================================================================
+<SET event name6>& <linking parameter6, keyword1>
+<SET event name7>& <linking parameter7, keyword4>
+
+counter
+====================================================================
+<SET event name10>& <linking parameter8>
