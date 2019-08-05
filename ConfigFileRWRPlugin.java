@@ -64,12 +64,12 @@ public class ConfigFileRWRPlugin
                     startflag = false; endflag = false; inbtwnflag = false; counterflag = false; sequentialflag = false;
                     String[] stringMaxResult = lineInFile.split(":"); //split the line into name and number
                     maxResults = Integer.parseInt(stringMaxResult[1].trim()); //convert number from string to int
-				} else if(lineInFile.charAt(0) != '<'){ //ignore any irrelevant line
+				} else if(lineInFile.charAt(0) != '{'){ //ignore any irrelevant line
 					//do nothing
                 } else {
-                    String[] arrayOfPhrases = lineInFile.split("&", -1); //breaking line into array of phrases
+                    String[] arrayOfPhrases = lineInFile.split(";", -1); //breaking line into array of phrases
                     for(int i = 0; i < arrayOfPhrases.length; i++){
-                        arrayOfPhrases[i] = arrayOfPhrases[i].substring(arrayOfPhrases[i].indexOf("<")+1,arrayOfPhrases[i].indexOf(">")); //taking elements within deliminator
+                        arrayOfPhrases[i] = arrayOfPhrases[i].substring(arrayOfPhrases[i].indexOf("{")+1,arrayOfPhrases[i].indexOf("}")); //taking elements within deliminator
                         if(i == 0){
                             if(startflag){
                                 startMap.put(arrayOfPhrases[i], new ArrayList<String>()); //putting phrase in respective map
