@@ -1,0 +1,28 @@
+start 
+====================================================================
+{FTL: HRF: Start Handle Flow (FFLBA-| sector offset| cnt| *HIMCmdIdx - host)}; {*HIMCmdIdx - host, cmdidx}; {FFLBA-, fflba}
+{FTL: PSR: host read VBA (VBA-)}; {VBA-, vba}
+
+inbtwn
+====================================================================
+{FTL: HRF: Start translate (FFLBA-)}; {FFLBA-, fflba} 
+{PS: CVD: TT params (vba32| stat|TTIdx|blkType| s3210| SB|s654)}; {vba32, vba}
+{PS: Debug: DGM Submit PS Req (dgId|ReqIdx|ReqType|VBA|secCnt|blkType|validCnt)}; {VBA, vba}
+
+end
+====================================================================
+{FTL: HRF: Finish Handle Flow (HIMCmdIdx)}; {HIMCmdIdx, cmdidx}
+{PS: OTG: Host Read Transfer (Cmd Idx| Cmd Off| reqId| vba| DeVBA0| DeVBA1)}; {vba, vba}
+
+counter
+====================================================================
+{FTL: HRF: Flow suspend (FFLBA-| Ctxt-| *HIMCmdIdx - host read only)}; {FFLBA-}
+{PS: OTG: Host Read Transfer (Cmd Idx| Cmd Off| reqId| vba| DeVBA0| DeVBA1)}; {Cmd Idx} //wont count bc its an end event too
+
+sequential
+====================================================================
+{FTL: SAT: Translate direct (FFLBA| Length| SearchCuq)}; {leader}; {FFLBA, fflba}
+{FTL: HRF: Finish translate (FFLBA|JBA|FMUsCnt|*prftch done|*preload cline)}; {follower}
+
+max results: 15
+

@@ -159,6 +159,7 @@ public class ConfigFileRWRPlugin
                 break;
             }
         }
+        if(indexOfLink >= arrayOfHexValues.length) return "";
         String hexValue = arrayOfHexValues[indexOfLink]; //using index found to access hex value
         return key + hexValue; //combining the unifying key and the hexvalue to distinguish between same hex values
     }
@@ -212,6 +213,7 @@ public class ConfigFileRWRPlugin
             endcounter++;
             String linkingParameter = endMap.get(name);
             String keyAndHex = creatingKeyHex(linkingParameter, name, parameters, false);
+            if(keyAndHex == "") return;
 
             if (mapOfHexValueToTrackNumber.containsKey(keyAndHex)) {
                 int track = addingInfoToTrack(keyAndHex, timestamp, name);

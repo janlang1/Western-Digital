@@ -1,0 +1,21 @@
+start 
+====================================================================
+{SET event name1}; {linking parameter1, keyword1}; {linking parameter2, keyword2}
+
+inbtwn
+====================================================================
+{SET event name3}; {linking parameter2, keyword2} 
+{SET event name5}; {linking parameter5, keyword2}
+
+end
+====================================================================
+{SET event name6}; {linking parameter6, keyword1}
+
+counter
+====================================================================
+{SET event name10}; {linking parameter8}
+
+sequential
+====================================================================
+{SET event name11}; {leader}; {linking parameter8, keyword2}
+{SET event name12}; {follower}

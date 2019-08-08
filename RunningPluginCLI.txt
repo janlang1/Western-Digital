@@ -1,0 +1,10 @@
+C:\xTools\app\xrwrdecoder>xrwrdecoder-cli.bat process decode 
+--product=Calypso-X 
+--run-mode=READ 
+--rwr-path=C:\xTools\RWR\408\rwr_file_408.rwr //start parsing file at 408 
+--dco-path=C:\xTools\RWR\SetDictionary.dco 
+--output-type=NONE //no csv files will be generated
+--plugin-classes=ConfigFileRWRPlugin //name of plugin classes, name the file of the java plugin the same as the class
+--plugin-source-directory=C:\xTools\Projectpresentation //where the plugin is, directory not file
+
+https://confluence.wdc.com/display/SWT/Plugin+User+Manual
