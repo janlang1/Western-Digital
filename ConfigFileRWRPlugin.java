@@ -190,6 +190,7 @@ public class ConfigFileRWRPlugin
                     throws Exception
     {
         //System.out.println(startMap.containsKey(name));
+        //HashMap<String, ArrayList<String>> map = startMap.containsKey(name) ?  : inbetweenMap;
         if(startMap.containsKey(name)){
             startcounter++;
             for(String linkingParameter : startMap.get(name)) { //going through each parameter we want to link
